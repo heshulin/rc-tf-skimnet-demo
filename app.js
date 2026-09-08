@@ -96,6 +96,32 @@ function makeComparison(host, sample) {
   update();
 }
 
+function metricList(sample) {
+  const m = sample.metrics;
+  if (!m || m.kind === 'no_reference') return null;
+  const fields = m.kind === 'no_target'
+    ? [['Suppression', m.suppression_db, ' dB']]
+    : [
+        [m.kind === 'target_only' ? 'Target gain' : 'SI-SDRi', m.kind === 'target_only' ? m.target_gain_db : m.si_sdri_db, ' dB'],
+        ['Output SI-SDR', m.output_si_sdr_db, ' dB'],
+        ['PESQ (WB)', m.pesq_wb, ''],
+        ['eSTOI', m.estoi, '']
+      ];
+  const list = document.createElement('dl');
+  list.className = 'sample-metrics';
+  list.setAttribute('aria-label', `Measured scores for ${sample.title}`);
+  for (const [name, value, unit] of fields) {
+    const item = document.createElement('div');
+    const term = document.createElement('dt');
+    const score = document.createElement('dd');
+    term.textContent = name;
+    score.textContent = Number.isFinite(value) ? (Math.abs(value) < 0.005 ? 0 : value).toFixed(2) + unit : 'N/A';
+    item.append(term, score);
+    list.append(item);
+  }
+  return list;
+}
+
 function addSample(container, sample) {
   const row = document.createElement('article');
   row.className = 'sample-row';
@@ -110,6 +136,8 @@ function addSample(container, sample) {
   detail.className = 'sample-detail';
   detail.textContent = sample.detail;
   description.append(title, meta, detail);
+  const metrics = metricList(sample);
+  if (metrics) description.append(metrics);
   const comparison = document.createElement('div');
   comparison.className = 'audio-comparison';
   row.append(description, comparison);

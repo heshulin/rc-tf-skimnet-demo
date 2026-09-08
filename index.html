@@ -7,9 +7,9 @@
   <meta name="theme-color" content="#146b78">
   <title>RC-TF-SkiMNet · Sound Bubble Demonstrations</title>
   <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="style.css">
-  <script src="samples.js" defer></script>
-  <script src="app.js" defer></script>
+  <link rel="stylesheet" href="style.css?v=83d2c2e83d5a">
+  <script src="samples.js?v=ef02e84d8b7f" defer></script>
+  <script src="app.js?v=0e391903c305" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -49,7 +49,7 @@
           <div class="device-copy"><h3>A 1 m listening region</h3><p>The desired speaker stands at 0.75 m and the outside speaker at 2.7 m. The video alternates the mixture and enhanced playback.</p><div class="audio-comparison" data-case="device-hold"></div></div>
         </article>
       </div>
-      <p class="section-note">The videos retain the presentation’s original audio and on-screen labels. The players below each video provide the separate mixture and enhanced tracks.</p>
+      <p class="section-note">The videos retain the presentation’s original audio and on-screen labels. The players provide separate mixture and enhanced tracks. These live recordings have no isolated reference, so reference-based quality scores are unavailable.</p>
     </section>
     <section class="section audio-section" id="simulated" aria-labelledby="simulated-title"><div class="wrap">
       <div class="section-head"><div><h2 id="simulated-title">Simulated mixtures</h2></div><p>Speech is rendered through room responses and mixed with other speech or noise. The reference is the desired source signal used in evaluation.</p></div>
@@ -59,7 +59,8 @@
     <section class="section wrap" id="recorded" aria-labelledby="recorded-title">
       <div class="section-head"><div><h2 id="recorded-title">Remixed headset recordings</h2></div><p>These examples combine separately recorded speech sources. They are distinct from the live device videos above.</p></div>
       <div id="recorded-samples" class="sample-list" aria-label="Audio examples from remixed headset recordings"></div>
-      <p class="section-note">The mixture player uses the reference microphone channel. One shared listening gain is applied to the mixture, output, and reference within each test example. Output and reference are never boosted independently. Log-magnitude spectrograms use a 20 ms sqrt-Hann window, a 10 ms hop, and a shared −80 to 0 dB color range. Within each comparison, 0 dB is the largest STFT magnitude across all tracks. Examples illustrate selected scenes and are not dataset-wide scores.</p>
+      <p class="section-note">Mixture playback uses the reference microphone. All tracks within a comparison share one gain. Short excerpts also use matching edge fades. Spectrograms use a 20 ms sqrt-Hann window, a 10 ms hop, and a shared −80 to 0 dB color range, referenced to the largest STFT magnitude across the tracks.</p>
+      <p class="section-note">Scores use the downloadable audio. SI-SDRi is output SI-SDR minus input SI-SDR. PESQ uses wideband mode, and eSTOI uses extended STOI. Target-only examples report output quality and target gain relative to the reference; no-target examples report input-to-output energy suppression. These clips are selected using their scores and do not represent dataset-wide results. <a href="assets/selected-example-metrics.csv" download>Download per-example metrics (CSV)</a>.</p>
     </section>
     <section class="section timing-section" id="timing" aria-labelledby="timing-title"><div class="wrap timing-layout">
       <div><h2 id="timing-title">Raspberry Pi 5 timing</h2><p class="timing-intro">The streaming prototype runs on the CPU with FP32 ONNX Runtime, two inference threads, and 16 kHz audio. Each step processes 10 ms of audio.</p><p>In a recorded 10-second live test, the prototype had no input or output drops. A separate six-second waveform test also verified numerical agreement with the PyTorch streaming implementation.</p></div>

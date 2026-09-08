@@ -3,6 +3,8 @@
 from pathlib import Path
 import argparse
 import json
+import hashlib
+import re
 import wave
 
 import matplotlib
@@ -80,6 +82,12 @@ def main():
                 case['spectrograms'][kind] = output.as_posix()
                 count += 1
     source.write_text('window.DEMO_SAMPLES = ' + json.dumps(data, ensure_ascii=False, indent=2) + ';\n')
+    index = root / 'index.html'
+    html = index.read_text()
+    for name in ['samples.js', 'app.js', 'style.css']:
+        digest = hashlib.sha256((root / name).read_bytes()).hexdigest()[:12]
+        html = re.sub(re.escape(name) + r'(?:\?v=[a-z0-9]+)?(?=")', name + '?v=' + digest, html)
+    index.write_text(html)
     print(f'Rendered {count} spectra for {sum(map(len, data.values()))} audio comparisons.')
 
 
