@@ -8,7 +8,7 @@
   <title>RC-TF-SkiMNet · Sound Bubble Demonstrations</title>
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="style.css?v=83d2c2e83d5a">
-  <script src="samples.js?v=ef02e84d8b7f" defer></script>
+  <script src="samples.js?v=53466e9f9334" defer></script>
   <script src="app.js?v=0e391903c305" defer></script>
 </head>
 <body>
@@ -60,7 +60,7 @@
       <div class="section-head"><div><h2 id="recorded-title">Remixed headset recordings</h2></div><p>These examples combine separately recorded speech sources. They are distinct from the live device videos above.</p></div>
       <div id="recorded-samples" class="sample-list" aria-label="Audio examples from remixed headset recordings"></div>
       <p class="section-note">Mixture playback uses the reference microphone. All tracks within a comparison share one gain. Short excerpts also use matching edge fades. Spectrograms use a 20 ms sqrt-Hann window, a 10 ms hop, and a shared −80 to 0 dB color range, referenced to the largest STFT magnitude across the tracks.</p>
-      <p class="section-note">Scores use the downloadable audio. SI-SDRi is output SI-SDR minus input SI-SDR. PESQ uses wideband mode, and eSTOI uses extended STOI. Target-only examples report output quality and target gain relative to the reference; no-target examples report input-to-output energy suppression. These clips are selected using their scores and do not represent dataset-wide results. <a href="assets/selected-example-metrics.csv" download>Download per-example metrics (CSV)</a>.</p>
+      <p class="section-note">Scores use the downloadable audio. SI-SDRi is output SI-SDR minus input SI-SDR. PESQ uses wideband mode, and eSTOI uses extended STOI. Target-only examples report output quality and target gain relative to the reference; no-target examples report input-to-output energy suppression. These clips are selected using their scores and do not represent dataset-wide results. <a href="assets/selected-example-metrics.csv?v=8e8243246f53" download>Download per-example metrics (CSV)</a>.</p>
     </section>
     <section class="section timing-section" id="timing" aria-labelledby="timing-title"><div class="wrap timing-layout">
       <div><h2 id="timing-title">Raspberry Pi 5 timing</h2><p class="timing-intro">The streaming prototype runs on the CPU with FP32 ONNX Runtime, two inference threads, and 16 kHz audio. Each step processes 10 ms of audio.</p><p>In a recorded 10-second live test, the prototype had no input or output drops. A separate six-second waveform test also verified numerical agreement with the PyTorch streaming implementation.</p></div>

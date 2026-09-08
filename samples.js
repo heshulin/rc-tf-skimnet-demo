@@ -354,12 +354,12 @@ window.DEMO_SAMPLES = {
       "id": "recorded-no-target",
       "title": "No speaker inside",
       "radius": "1.5",
-      "detail": "Only outside speech or noise is present. A quiet enhanced output is expected.",
+      "detail": "One outside speaker and background noise are both present.",
       "durationLabel": "10 s",
       "tracks": {
-        "mixture": "assets/recorded/no-target/a61009d73a5e/mixture.wav",
-        "output": "assets/recorded/no-target/a61009d73a5e/output.wav",
-        "reference": "assets/recorded/no-target/a61009d73a5e/reference.wav"
+        "mixture": "assets/recorded/no-target/eb5098a05220/mixture.wav",
+        "output": "assets/recorded/no-target/eb5098a05220/output.wav",
+        "reference": "assets/recorded/no-target/eb5098a05220/reference.wav"
       },
       "metrics": {
         "valid": true,
@@ -370,18 +370,18 @@ window.DEMO_SAMPLES = {
           "output": 0,
           "reference": 0
         },
-        "suppression_db": 80.76253515404703,
-        "input_rms_dbfs": -12.462095192094836,
-        "output_rms_dbfs": -93.22463034614186,
-        "listening_input_rms_dbfs": -12.461940317001584,
+        "suppression_db": 72.36900578319384,
+        "input_rms_dbfs": -14.32840659790221,
+        "output_rms_dbfs": -86.69741238109606,
+        "listening_input_rms_dbfs": -14.328251722808963,
         "input_active_fraction": 1.0,
         "kind": "no_target"
       },
       "screened": true,
       "spectrograms": {
-        "mixture": "assets/recorded/no-target/a61009d73a5e/mixture-spectrum.png",
-        "output": "assets/recorded/no-target/a61009d73a5e/output-spectrum.png",
-        "reference": "assets/recorded/no-target/a61009d73a5e/reference-spectrum.png"
+        "mixture": "assets/recorded/no-target/eb5098a05220/mixture-spectrum.png",
+        "output": "assets/recorded/no-target/eb5098a05220/output-spectrum.png",
+        "reference": "assets/recorded/no-target/eb5098a05220/reference-spectrum.png"
       }
     },
     {
