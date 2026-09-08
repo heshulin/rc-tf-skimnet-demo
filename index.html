@@ -24,7 +24,7 @@
   <main id="main">
     <section class="hero wrap" aria-labelledby="hero-title">
       <div class="hero-copy">
-        <p class="eyebrow">Sound Bubble · Research demonstrations</p>
+
         <h1 id="hero-title">Choose a<br>listening radius.</h1>
         <p class="lede">Keep nearby speech and suppress speech outside the selected region with an eight-microphone headset.</p>
         <p class="method-name">Radius-Conditioned TF-SkiMNet</p>
@@ -37,35 +37,32 @@
         <figcaption>A spherical overlay illustrates the selected listening region.</figcaption>
       </figure>
     </section>
-    <div class="context-strip wrap">
-      <p><strong>About these demonstrations.</strong> The videos and timing tests show our streaming backbone prototype. The listening examples illustrate behavior in prototype evaluations. Each radius query allows at most one desired speaker. The complete training recipe in the manuscript is evaluated separately.</p>
-    </div>
     <section class="section wrap" id="device" aria-labelledby="device-title">
-      <div class="section-head"><div><p class="eyebrow">On the headset</p><h2 id="device-title">A working Raspberry Pi prototype</h2></div><p>Eight input channels, one enhanced output, and a radius that can be changed during operation.</p></div>
+      <div class="section-head"><div><h2 id="device-title">A working Raspberry Pi prototype</h2></div><p>Eight input channels, one enhanced output, and a radius that can be changed during operation.</p></div>
       <div class="device-grid">
         <article class="device-demo">
           <video controls playsinline preload="metadata" poster="assets/device/radius-switching-poster.png" aria-label="Device demonstration: switch the radius from 2 metres to 1 metre"><source src="assets/device/radius-switching.mp4" type="video/mp4">Your browser does not support video. <a href="assets/device/radius-switching.mp4">Download the video</a>.</video>
-          <div class="device-copy"><p class="example-label">Radius switching</p><h3>From 2 m to 1 m</h3><p>The speakers stand at 1.75 m and 2.7 m. At a 2 m radius, the nearer speaker is inside. At a 1 m radius, both speakers are outside.</p><div class="audio-comparison" data-case="device-switch"></div></div>
+          <div class="device-copy"><h3>From 2 m to 1 m</h3><p>The speakers stand at 1.75 m and 2.7 m. At a 2 m radius, the nearer speaker is inside. At a 1 m radius, both speakers are outside.</p><div class="audio-comparison" data-case="device-switch"></div></div>
         </article>
         <article class="device-demo">
           <video controls playsinline preload="metadata" poster="assets/device/outside-suppression-poster.png" aria-label="Device demonstration: retain speech inside a 1 metre radius"><source src="assets/device/outside-suppression.mp4" type="video/mp4">Your browser does not support video. <a href="assets/device/outside-suppression.mp4">Download the video</a>.</video>
-          <div class="device-copy"><p class="example-label">Outside-speech suppression</p><h3>A 1 m listening region</h3><p>The desired speaker stands at 0.75 m and the outside speaker at 2.7 m. The video alternates the mixture and enhanced playback.</p><div class="audio-comparison" data-case="device-hold"></div></div>
+          <div class="device-copy"><h3>A 1 m listening region</h3><p>The desired speaker stands at 0.75 m and the outside speaker at 2.7 m. The video alternates the mixture and enhanced playback.</p><div class="audio-comparison" data-case="device-hold"></div></div>
         </article>
       </div>
       <p class="section-note">The videos retain the presentation’s original audio and on-screen labels. The players below each video provide the separate mixture and enhanced tracks.</p>
     </section>
     <section class="section audio-section" id="simulated" aria-labelledby="simulated-title"><div class="wrap">
-      <div class="section-head"><div><p class="eyebrow">Listen and compare</p><h2 id="simulated-title">Simulated mixtures</h2></div><p>Speech is rendered through room responses and mixed with other speech or noise. The reference is the desired source signal used in evaluation.</p></div>
+      <div class="section-head"><div><h2 id="simulated-title">Simulated mixtures</h2></div><p>Speech is rendered through room responses and mixed with other speech or noise. The reference is the desired source signal used in evaluation.</p></div>
       <div class="listening-guide"><span class="guide-mark" aria-hidden="true">♪</span><p>Select <strong>Mixture</strong>, <strong>Enhanced</strong>, or <strong>Reference</strong> to compare signals at the same playback position. The spectrogram changes with the selected track. Only one player plays at a time.</p></div>
       <div id="simulated-samples" class="sample-list" aria-label="Simulated audio examples"></div>
     </div></section>
     <section class="section wrap" id="recorded" aria-labelledby="recorded-title">
-      <div class="section-head"><div><p class="eyebrow">Recorded sources</p><h2 id="recorded-title">Remixed headset recordings</h2></div><p>These examples combine separately recorded speech sources. They are distinct from the live device videos above.</p></div>
+      <div class="section-head"><div><h2 id="recorded-title">Remixed headset recordings</h2></div><p>These examples combine separately recorded speech sources. They are distinct from the live device videos above.</p></div>
       <div id="recorded-samples" class="sample-list" aria-label="Audio examples from remixed headset recordings"></div>
       <p class="section-note">The mixture player uses the reference microphone channel. One shared listening gain is applied to the mixture, output, and reference within each test example. Output and reference are never boosted independently. Log-magnitude spectrograms use a 20 ms sqrt-Hann window, a 10 ms hop, and a shared −80 to 0 dB color range. Within each comparison, 0 dB is the largest STFT magnitude across all tracks. Examples illustrate selected scenes and are not dataset-wide scores.</p>
     </section>
     <section class="section timing-section" id="timing" aria-labelledby="timing-title"><div class="wrap timing-layout">
-      <div><p class="eyebrow">On-device operation</p><h2 id="timing-title">Raspberry Pi 5 timing</h2><p class="timing-intro">The streaming prototype runs on the CPU with FP32 ONNX Runtime, two inference threads, and 16 kHz audio. Each step processes 10 ms of audio.</p><p>In a recorded 10-second live test, the prototype had no input or output drops. A separate six-second waveform test also verified numerical agreement with the PyTorch streaming implementation.</p></div>
+      <div><h2 id="timing-title">Raspberry Pi 5 timing</h2><p class="timing-intro">The streaming prototype runs on the CPU with FP32 ONNX Runtime, two inference threads, and 16 kHz audio. Each step processes 10 ms of audio.</p><p>In a recorded 10-second live test, the prototype had no input or output drops. A separate six-second waveform test also verified numerical agreement with the PyTorch streaming implementation.</p></div>
       <div>
         <table class="timing-table"><caption>Measured prototype processing time</caption><thead><tr><th scope="col">Measure</th><th scope="col">Result</th></tr></thead><tbody><tr><th scope="row">Median step time</th><td>5.97 ms</td></tr><tr><th scope="row">95th percentile</th><td>6.18 ms</td></tr><tr><th scope="row">99th percentile</th><td>6.66 ms</td></tr><tr><th scope="row">Audio per step</th><td>10 ms</td></tr><tr><th scope="row">Offline real-time factor</th><td>0.62</td></tr></tbody></table>
         <p class="measurement-note">The real-time factor is processing time divided by audio duration, measured on a separate 6-second input. The presentation reports an approximate <strong>60 ms system delay</strong>. This system-level estimate includes more than the processing step and uses a different timing definition.</p>
