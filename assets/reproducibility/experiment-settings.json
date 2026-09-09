@@ -1,0 +1,484 @@
+{
+  "title": "Low-Complexity Real-Time Sound Bubble Extraction for Hearables",
+  "scope": "Experiment settings and corpus/scene identifiers. Audio, RIR arrays and final model weights are not included.",
+  "data": {
+    "speech_subsets": {
+      "training": [
+        "train-clean-100",
+        "train-clean-360"
+      ],
+      "validation": [
+        "dev-clean"
+      ],
+      "test": [
+        "test-clean"
+      ]
+    },
+    "speech_file_counts": {
+      "train-clean-100": 28539,
+      "train-clean-360": 104014,
+      "dev-clean": 2703,
+      "test-clean": 2620
+    },
+    "noise_partitions": {
+      "training": "WHAM tr",
+      "validation": "WHAM cv",
+      "test": "WHAM tt"
+    },
+    "noise_file_counts": {
+      "tr": 20000,
+      "cv": 5000,
+      "tt": 3000
+    },
+    "noise_channel_filter": "at_least_two_channels",
+    "training_noise_speed_factors": [
+      1.0
+    ],
+    "rir_generation": [
+      "COMSOL headset acoustic responses",
+      "image method"
+    ],
+    "rir_scenes": {
+      "training": 20000,
+      "validation": 2000,
+      "standard_test_unique": 600,
+      "radius_test": 100
+    },
+    "rir_split_seed": 20260902,
+    "rir_nominal_radii_m": [
+      1.0,
+      1.5,
+      2.0
+    ],
+    "rir_training_quota": {
+      "1.0": 6667,
+      "1.5": 6667,
+      "2.0": 6666
+    },
+    "rir_validation_quota": {
+      "1.0": 667,
+      "1.5": 667,
+      "2.0": 666
+    },
+    "t60_range_s": [
+      0.3,
+      1.2
+    ],
+    "t60_low_range_s": [
+      0.3,
+      0.8
+    ],
+    "t60_low_fraction": 0.8,
+    "simulation": {
+      "mixture_seconds": 6.0,
+      "segment_min_seconds": 2.0,
+      "short_source_policy": "use_entire_source_when_shorter_than_2_seconds",
+      "source_placement": "random_valid_offset_in_mixture",
+      "max_outside_speech": 2,
+      "target_absence_probability": 0.1,
+      "ear_noise_probability": 0.5,
+      "noise_uses_speech_slot": false,
+      "target_to_total_interference_db": [
+        -5.0,
+        10.0
+      ],
+      "power_reference": "mean_power_at_microphones_0_and_4",
+      "continuous_radius_proposal_m": [
+        0.8,
+        2.0
+      ],
+      "query_acceptance": "source_count_inside_equals_preselected_zero_or_one"
+    },
+    "recordings": {
+      "training_session": "first",
+      "test_session": "second",
+      "wearers_per_session": 5,
+      "selected_recordings_per_session": 160,
+      "target_distance_m": 0.5,
+      "interferer_distance_m": 1.75,
+      "query_radius_m": 1.0,
+      "training_target_absence_probability": 0.3,
+      "speech_skip_seconds": 10.0,
+      "segment_seconds": [
+        2.0,
+        6.0
+      ],
+      "source_placement": "independent_random_valid_offsets",
+      "reference_model": "TF-SkiMNet"
+    },
+    "ear_noise": {
+      "channel_groups": [
+        [
+          0,
+          1,
+          2,
+          3
+        ],
+        [
+          4,
+          5,
+          6,
+          7
+        ]
+      ],
+      "gain_uniform_db": [
+        -2,
+        2
+      ],
+      "shift_uniform_integer_samples": [
+        -2,
+        -1,
+        0,
+        1,
+        2
+      ]
+    },
+    "normalization": "one_standard_deviation_over_all_samples_and_channels_of_the_full_mixture_shared_by_mixture_and_targets"
+  },
+  "models": {
+    "M1": {
+      "name": "Sound Bubble, full, discrete",
+      "radius_conditioning": "discrete",
+      "blocks": 6,
+      "feature_width": 32,
+      "recurrent_width": 64,
+      "output": "complex_mapping",
+      "input_features": [
+        "RI",
+        "ILD",
+        "IPD"
+      ],
+      "batch_size": 4,
+      "sample_rate_hz": 16000,
+      "window_samples": 320,
+      "hop_samples": 160,
+      "fft_samples": 320,
+      "learning_rate": 0.001,
+      "precision": "float32",
+      "seed": 7,
+      "max_epochs": 300,
+      "gradient_accumulation_steps": 1,
+      "gradient_clip_norm": 1.0,
+      "waveform_target": "direct_path_in_simulation_and_denoised_reference_in_recordings",
+      "separation_loss": "negative_SNR_or_50_times_L1_for_silent_targets",
+      "vad_loss_weight": 0.0,
+      "active_tail_weight": 0.0,
+      "absent_tail_weight": 0.0,
+      "paired_query_enabled": false,
+      "frequency_compression_factor": 1,
+      "radius_encoder_hidden_width": 0
+    },
+    "M2": {
+      "name": "Sound Bubble, small, discrete",
+      "radius_conditioning": "discrete",
+      "blocks": 4,
+      "feature_width": 17,
+      "recurrent_width": 26,
+      "output": "complex_mapping",
+      "input_features": [
+        "RI",
+        "ILD",
+        "IPD"
+      ],
+      "batch_size": 8,
+      "sample_rate_hz": 16000,
+      "window_samples": 320,
+      "hop_samples": 160,
+      "fft_samples": 320,
+      "learning_rate": 0.001,
+      "precision": "float32",
+      "seed": 7,
+      "max_epochs": 300,
+      "gradient_accumulation_steps": 1,
+      "gradient_clip_norm": 1.0,
+      "waveform_target": "direct_path_in_simulation_and_denoised_reference_in_recordings",
+      "separation_loss": "negative_SNR_or_50_times_L1_for_silent_targets",
+      "vad_loss_weight": 0.0,
+      "active_tail_weight": 0.0,
+      "absent_tail_weight": 0.0,
+      "paired_query_enabled": false,
+      "frequency_compression_factor": 11,
+      "radius_encoder_hidden_width": 0
+    },
+    "M3": {
+      "name": "RC-TF-SkiMNet backbone, discrete",
+      "radius_conditioning": "discrete",
+      "blocks": 6,
+      "feature_width": 22,
+      "recurrent_width": 22,
+      "output": "complex_mask",
+      "input_features": [
+        "RI",
+        "reference_magnitude",
+        "ILD",
+        "sine_cosine_IPD"
+      ],
+      "batch_size": 8,
+      "sample_rate_hz": 16000,
+      "window_samples": 320,
+      "hop_samples": 160,
+      "fft_samples": 320,
+      "learning_rate": 0.001,
+      "precision": "float32",
+      "seed": 7,
+      "max_epochs": 300,
+      "gradient_accumulation_steps": 1,
+      "gradient_clip_norm": 1.0,
+      "waveform_target": "direct_path_in_simulation_and_denoised_reference_in_recordings",
+      "separation_loss": "stabilized_SNR_plus_compressed_RI_and_magnitude",
+      "vad_loss_weight": 0.0,
+      "active_tail_weight": 0.0,
+      "absent_tail_weight": 0.0,
+      "paired_query_enabled": false,
+      "encoder_kernel": 5,
+      "local_frequency_kernel": 5,
+      "local_time_kernel": 5,
+      "lstm_groups": 1,
+      "erb_low_bins": 30,
+      "erb_high_bands": 54,
+      "subband_time_blocks": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    "M4": {
+      "name": "Sound Bubble, small, continuous",
+      "radius_conditioning": "continuous",
+      "blocks": 4,
+      "feature_width": 17,
+      "recurrent_width": 26,
+      "output": "complex_mapping",
+      "input_features": [
+        "RI",
+        "ILD",
+        "IPD"
+      ],
+      "batch_size": 8,
+      "sample_rate_hz": 16000,
+      "window_samples": 320,
+      "hop_samples": 160,
+      "fft_samples": 320,
+      "learning_rate": 0.001,
+      "precision": "float32",
+      "seed": 7,
+      "max_epochs": 300,
+      "gradient_accumulation_steps": 1,
+      "gradient_clip_norm": 1.0,
+      "waveform_target": "direct_path_in_simulation_and_denoised_reference_in_recordings",
+      "separation_loss": "negative_SNR_or_50_times_L1_for_silent_targets",
+      "vad_loss_weight": 0.0,
+      "active_tail_weight": 0.0,
+      "absent_tail_weight": 0.0,
+      "paired_query_enabled": false,
+      "frequency_compression_factor": 11,
+      "radius_encoder_hidden_width": 16
+    },
+    "M5": {
+      "name": "RC-TF-SkiMNet backbone, continuous",
+      "radius_conditioning": "continuous",
+      "blocks": 6,
+      "feature_width": 22,
+      "recurrent_width": 22,
+      "output": "complex_mask",
+      "input_features": [
+        "RI",
+        "reference_magnitude",
+        "ILD",
+        "sine_cosine_IPD"
+      ],
+      "batch_size": 8,
+      "sample_rate_hz": 16000,
+      "window_samples": 320,
+      "hop_samples": 160,
+      "fft_samples": 320,
+      "learning_rate": 0.001,
+      "precision": "float32",
+      "seed": 7,
+      "max_epochs": 300,
+      "gradient_accumulation_steps": 1,
+      "gradient_clip_norm": 1.0,
+      "waveform_target": "direct_path_in_simulation_and_denoised_reference_in_recordings",
+      "separation_loss": "stabilized_SNR_plus_compressed_RI_and_magnitude",
+      "vad_loss_weight": 0.0,
+      "active_tail_weight": 0.0,
+      "absent_tail_weight": 0.0,
+      "paired_query_enabled": false,
+      "encoder_kernel": 5,
+      "local_frequency_kernel": 5,
+      "local_time_kernel": 5,
+      "lstm_groups": 1,
+      "erb_low_bins": 30,
+      "erb_high_bands": 54,
+      "subband_time_blocks": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    "M6": {
+      "name": "RC-TF-SkiMNet, complete method",
+      "radius_conditioning": "continuous",
+      "blocks": 6,
+      "feature_width": 22,
+      "recurrent_width": 22,
+      "output": "complex_mask",
+      "input_features": [
+        "RI",
+        "reference_magnitude",
+        "ILD",
+        "sine_cosine_IPD"
+      ],
+      "batch_size": 8,
+      "sample_rate_hz": 16000,
+      "window_samples": 320,
+      "hop_samples": 160,
+      "fft_samples": 320,
+      "learning_rate": 0.001,
+      "precision": "float32",
+      "seed": 7,
+      "max_epochs": 300,
+      "gradient_accumulation_steps": 1,
+      "gradient_clip_norm": 1.0,
+      "waveform_target": "direct_path_in_simulation_and_denoised_reference_in_recordings",
+      "separation_loss": "stabilized_SNR_plus_compressed_RI_and_magnitude",
+      "vad_loss_weight": 0.1,
+      "active_tail_weight": 0.05,
+      "absent_tail_weight": 0.05,
+      "paired_query_enabled": true,
+      "encoder_kernel": 5,
+      "local_frequency_kernel": 5,
+      "local_time_kernel": 5,
+      "lstm_groups": 1,
+      "erb_low_bins": 30,
+      "erb_high_bands": 54,
+      "subband_time_blocks": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "paired_training": {
+        "fraction": 0.25,
+        "supervision_weight": 0.25,
+        "contrastive_weight": 0.02,
+        "negative_margin": 0.2,
+        "different_target_request_probability": 0.5,
+        "projection_width": 64,
+        "ramp_epochs": 3
+      }
+    }
+  },
+  "optimization": {
+    "optimizer": "Adam",
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "epsilon": 1e-08,
+    "weight_decay": 0,
+    "epoch_draws": 100300,
+    "sampling_with_replacement": true,
+    "simulation_probability": 0.8,
+    "recording_probability": 0.2,
+    "scheduler": "ReduceLROnPlateau",
+    "lr_factor": 0.5,
+    "scheduler_patience": 6,
+    "absolute_min_delta": 0.002,
+    "early_stop_patience": 20,
+    "early_stop_count_from_epoch": 60,
+    "early_stop_max_lr_ratio": 0.25,
+    "selection": "minimum_model_specific_loss_on_frozen_simulated_validation",
+    "validation_uses_paired_terms": false
+  },
+  "numerical_details": {
+    "spectral_magnitude_epsilon": 1e-05,
+    "spectral_exponent": 0.3,
+    "waveform_signal_epsilon": 0.001,
+    "waveform_noise_epsilon": 1e-05,
+    "waveform_mean_centering": true,
+    "waveform_scale_projection": false,
+    "projection_l2_epsilon": 1e-08,
+    "layer_norm_epsilon": 1e-05,
+    "vad_relative_power_threshold_db": -40,
+    "tail_fraction": 0.25,
+    "tail_count_rounding": "ceiling",
+    "pair_count_rounding": "nearest_integer_ties_to_even_minimum_one_if_available",
+    "tail_softplus_temperature_db": 1,
+    "active_tail_threshold_db": 6,
+    "absent_tail_threshold_db": 15,
+    "tail_identity_relative_mse_tolerance": 1e-12
+  },
+  "training_ablation_switches": {
+    "base_separation": {
+      "vad": false,
+      "tail": false,
+      "paired": false,
+      "contrastive": false
+    },
+    "add_activity": {
+      "vad": true,
+      "tail": false,
+      "paired": false,
+      "contrastive": false
+    },
+    "add_tail": {
+      "vad": true,
+      "tail": true,
+      "paired": false,
+      "contrastive": false
+    },
+    "add_paired_supervision": {
+      "vad": true,
+      "tail": true,
+      "paired": true,
+      "contrastive": false
+    },
+    "complete_method": {
+      "vad": true,
+      "tail": true,
+      "paired": true,
+      "contrastive": true
+    }
+  },
+  "evaluation": {
+    "mixtures_per_condition_per_domain": 100,
+    "target_present_pooled_count": 400,
+    "pooled_conditions": [
+      "one_interferer",
+      "noise",
+      "one_interferer_plus_noise",
+      "two_interferers"
+    ],
+    "no_target_count": 100,
+    "low_sisdri_db_operator": "<6",
+    "low_suppression_db_operator": "<=15",
+    "radius_queries_m": [
+      1,
+      1.2,
+      1.4,
+      1.6,
+      1.8,
+      2.0
+    ],
+    "radius_mixtures_per_domain": 100,
+    "simulated_radius_source_distance_m": [
+      0.5,
+      2.5
+    ],
+    "recorded_radius_source_distance_m": 1.75,
+    "metrics": [
+      "SI-SDR improvement",
+      "PESQ wideband",
+      "extended STOI",
+      "energy suppression"
+    ],
+    "compute_profile_frames": 1000,
+    "compute_profile_audio_seconds": 10
+  }
+}

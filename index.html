@@ -17,7 +17,7 @@
     <div class="nav-wrap">
       <a class="wordmark" href="#">RC-TF-SkiMNet</a>
       <nav aria-label="Main navigation">
-        <a href="#device">Device demos</a><a href="#simulated">Simulated</a><a href="#recorded">Recorded mixtures</a><a href="#timing">Timing</a>
+        <a href="#device">Device demos</a><a href="#simulated">Simulated</a><a href="#recorded">Recorded mixtures</a><a href="#timing">Timing</a><a href="#reproducibility">Settings</a>
       </nav>
     </div>
   </header>
@@ -69,6 +69,12 @@
         <p class="measurement-note">The real-time factor is processing time divided by audio duration, measured on a separate 6-second input. The presentation reports an approximate <strong>60 ms system delay</strong>. This system-level estimate includes more than the processing step and uses a different timing definition.</p>
       </div>
     </div></section>
+    <section class="section wrap credits" id="reproducibility" aria-labelledby="settings-title">
+      <h2 id="settings-title">Experiment settings</h2>
+      <p>Settings for the manuscript's six systems, including corpus splits, mixture construction, network layers, losses, and training parameters.</p>
+      <p><a href="assets/reproducibility/experiment-settings.pdf">Experiment settings (PDF)</a> · <a href="assets/reproducibility/experiment-settings.json" download>Configurations (JSON)</a> · <a href="assets/reproducibility/source-file-lists.zip" download>Corpus and scene lists (ZIP)</a></p>
+      <p class="section-note">The lists identify corpus files and RIR scenes assigned to each partition. Audio and RIR arrays are not included in these downloads.</p>
+    </section>
     <section class="section wrap credits" aria-labelledby="credits-title"><h2 id="credits-title">Materials and context</h2><p>Device videos and paired audio come from our hardware demonstration. Speech and ambient-noise sources for the simulated examples include <a href="https://www.openslr.org/12/">LibriSpeech</a> and <a href="https://wham.whisper.ai/">WHAM!</a>. Recorded-mixture examples use speech captured with our headset.</p><p>The model builds on <a href="https://www.isca-archive.org/interspeech_2025/li25d_interspeech.html">TF-SkiMNet</a>. The sound-bubble task follows <a href="https://doi.org/10.1038/s41928-024-01276-z">Hearable devices with sound bubbles</a>.</p><p><a class="text-link" href="https://github.com/heshulin/rc-tf-skimnet-demo">Demo page source on GitHub <span aria-hidden="true">↗</span></a></p></section>
   </main>
   <footer class="wrap footer"><span>RC-TF-SkiMNet</span><span>Sound Bubble demonstrations</span></footer>
