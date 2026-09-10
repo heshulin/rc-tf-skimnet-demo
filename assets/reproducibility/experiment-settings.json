@@ -171,9 +171,9 @@
     "M2": {
       "name": "Sound Bubble, small, discrete",
       "radius_conditioning": "discrete",
-      "blocks": 4,
-      "feature_width": 17,
-      "recurrent_width": 26,
+      "blocks": 6,
+      "feature_width": 23,
+      "recurrent_width": 23,
       "output": "complex_mapping",
       "input_features": [
         "RI",
@@ -197,7 +197,7 @@
       "active_tail_weight": 0.0,
       "absent_tail_weight": 0.0,
       "paired_query_enabled": false,
-      "frequency_compression_factor": 11,
+      "frequency_compression_factor": 3,
       "radius_encoder_hidden_width": 0
     },
     "M3": {
@@ -247,9 +247,9 @@
     "M4": {
       "name": "Sound Bubble, small, continuous",
       "radius_conditioning": "continuous",
-      "blocks": 4,
-      "feature_width": 17,
-      "recurrent_width": 26,
+      "blocks": 6,
+      "feature_width": 23,
+      "recurrent_width": 23,
       "output": "complex_mapping",
       "input_features": [
         "RI",
@@ -273,7 +273,7 @@
       "active_tail_weight": 0.0,
       "absent_tail_weight": 0.0,
       "paired_query_enabled": false,
-      "frequency_compression_factor": 11,
+      "frequency_compression_factor": 3,
       "radius_encoder_hidden_width": 16
     },
     "M5": {
@@ -484,11 +484,16 @@
   "profiling": {
     "tool": "ptflops",
     "version": "0.7.5",
-    "torch_version": "2.8.0",
+    "torch_version": "2.8.0+cpu",
     "backend": "pytorch",
-    "count_functional": true,
-    "custom_hooks": false,
+    "count_functional": false,
+    "project_layernorm_native_hook": true,
+    "custom_hooks": {
+      "project_layernorm_subclasses": "native nn.LayerNorm counting rule"
+    },
     "device": "cpu",
+    "sample_rate_hz": 16000,
+    "microphones": 8,
     "batch_size": 1,
     "input_shape": [
       1,
@@ -501,57 +506,71 @@
     "frames": 1000,
     "hop_seconds": 0.01,
     "duration_seconds": 10,
-    "unit": "GMAC/s",
-    "parameter_definition": "Trainable parameters of the inference network; fixed ERB coefficients and the training-only projection are excluded.",
-    "scope": "Network from mixture RI spectrum; includes executed VAD and ERB matrix operations. STFT, inverse STFT, second-query/projection training branches and operations unsupported by this backend are excluded.",
+    "unit": "GMACs/s",
+    "parameter_unit": "M",
+    "normalization": "MACs / (1e9 * input_audio_seconds)",
+    "parameter_definition": "Inference parameter entries: includes fixed ERB weights and the VAD head when present; excludes the training-only projection.",
+    "scope": "Network from mixture RI spectra. STFT, inverse STFT, SiLU and unsupported functional operations are excluded.",
     "systems": {
       "M1": {
+        "total_training_parameters": 504470,
+        "trainable_training_parameters": 504470,
+        "inference_parameters": 504470,
         "trainable_inference_parameters": 504470,
         "fixed_coefficients": 0,
-        "stored_inference_weight_entries": 504470,
         "training_projection_parameters": 0,
         "macs": 82437919648,
         "gmac_per_second": 8.2437919648
       },
       "M2": {
-        "trainable_inference_parameters": 118490,
+        "total_training_parameters": 123434,
+        "trainable_training_parameters": 123434,
+        "inference_parameters": 123434,
+        "trainable_inference_parameters": 123434,
         "fixed_coefficients": 0,
-        "stored_inference_weight_entries": 118490,
         "training_projection_parameters": 0,
-        "macs": 5744698218,
-        "gmac_per_second": 0.5744698218
+        "macs": 10864026034,
+        "gmac_per_second": 1.0864026034
       },
       "M3": {
+        "total_training_parameters": 127416,
+        "trainable_training_parameters": 113268,
+        "inference_parameters": 127416,
         "trainable_inference_parameters": 113268,
         "fixed_coefficients": 14148,
-        "stored_inference_weight_entries": 127416,
         "training_projection_parameters": 0,
-        "macs": 10481046224,
-        "gmac_per_second": 1.0481046224
+        "macs": 10476118186,
+        "gmac_per_second": 1.0476118186
       },
       "M4": {
-        "trainable_inference_parameters": 126894,
+        "total_training_parameters": 131838,
+        "trainable_training_parameters": 131838,
+        "inference_parameters": 131838,
+        "trainable_inference_parameters": 131838,
         "fixed_coefficients": 0,
-        "stored_inference_weight_entries": 126894,
         "training_projection_parameters": 0,
-        "macs": 5744706654,
-        "gmac_per_second": 0.5744706654
+        "macs": 10864034454,
+        "gmac_per_second": 1.0864034454
       },
       "M5": {
+        "total_training_parameters": 127384,
+        "trainable_training_parameters": 113236,
+        "inference_parameters": 127384,
         "trainable_inference_parameters": 113236,
         "fixed_coefficients": 14148,
-        "stored_inference_weight_entries": 127384,
         "training_projection_parameters": 0,
-        "macs": 10481046192,
-        "gmac_per_second": 1.0481046192
+        "macs": 10476118154,
+        "gmac_per_second": 1.0476118154
       },
       "M6": {
+        "total_training_parameters": 133635,
+        "trainable_training_parameters": 119487,
+        "inference_parameters": 127958,
         "trainable_inference_parameters": 113810,
         "fixed_coefficients": 14148,
-        "stored_inference_weight_entries": 127958,
         "training_projection_parameters": 5677,
-        "macs": 10481641192,
-        "gmac_per_second": 1.0481641192
+        "macs": 10476691154,
+        "gmac_per_second": 1.0476691154
       }
     }
   }
