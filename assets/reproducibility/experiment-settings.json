@@ -104,7 +104,10 @@
         6.0
       ],
       "source_placement": "independent_random_valid_offsets",
-      "reference_model": "TF-SkiMNet"
+      "reference_model": "TF-SkiMNet",
+      "release_status": "planned_public_release",
+      "recording_protocol_url": "https://heshulin.github.io/rc-tf-skimnet-demo/#recording-protocol",
+      "placement_start_rule": "uniform integer sample index from 0 to mixture_samples - segment_samples, inclusive"
     },
     "ear_noise": {
       "channel_groups": [

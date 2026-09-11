@@ -153,3 +153,13 @@ for (const domain of ['simulated', 'recorded']) {
   const container = document.getElementById(`${domain}-samples`);
   for (const sample of window.DEMO_SAMPLES[domain]) addSample(container, sample);
 }
+
+function revealLinkedSettings() {
+  const target = document.getElementById(window.location.hash.slice(1));
+  if (target && target.matches('details.settings-detail')) {
+    target.open = true;
+    requestAnimationFrame(() => target.scrollIntoView({block: 'start'}));
+  }
+}
+window.addEventListener('hashchange', revealLinkedSettings);
+revealLinkedSettings();
