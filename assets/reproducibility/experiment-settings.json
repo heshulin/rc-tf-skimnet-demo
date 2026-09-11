@@ -242,7 +242,8 @@
         3,
         4,
         5
-      ]
+      ],
+      "mask_scale": 1.0
     },
     "M4": {
       "name": "Sound Bubble, small, continuous",
@@ -318,7 +319,8 @@
         3,
         4,
         5
-      ]
+      ],
+      "mask_scale": 1.0
     },
     "M6": {
       "name": "RC-TF-SkiMNet, complete method",
@@ -371,7 +373,8 @@
         "different_target_request_probability": 0.5,
         "projection_width": 64,
         "ramp_epochs": 3
-      }
+      },
+      "mask_scale": 1.0
     }
   },
   "optimization": {
