@@ -9,3 +9,5 @@
 .settings-scroll-hint{display:none}@media(max-width:700px){.settings-content .settings-scroll-hint{display:block;font-size:12px;margin:0 0 8px;color:var(--muted)}}
 
 #network-cost-table th:last-child,#network-cost-table td:last-child{white-space:nowrap}
+
+.microphone-section{padding-top:20px;padding-bottom:40px}.microphone-figure{max-width:840px;margin:0 auto;padding:24px;background:var(--white);border:1px solid var(--line);border-radius:10px}.microphone-figure a,.microphone-figure img{display:block;width:100%;height:auto}.microphone-figure figcaption{margin-top:14px;font-size:13px;color:var(--muted);text-align:center}.microphone-links{max-width:840px;margin:16px auto 0;font-size:13px}@media(max-width:700px){html{scroll-padding-top:120px}nav{flex-wrap:wrap;justify-content:flex-start;gap:6px 14px}.microphone-section{padding-top:12px}.microphone-figure{padding:12px}.microphone-figure figcaption{font-size:12px;text-align:left}}

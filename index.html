@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#146b78">
   <title>RC-TF-SkiMNet · Sound Bubble Demonstrations</title>
   <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="style.css?v=c5b6c4319870">
+  <link rel="stylesheet" href="style.css?v=0cdd59b2575f">
   <script src="samples.js?v=53466e9f9334" defer></script>
   <script src="app.js?v=0e391903c305" defer></script>
 </head>
@@ -17,7 +17,7 @@
     <div class="nav-wrap">
       <a class="wordmark" href="#">RC-TF-SkiMNet</a>
       <nav aria-label="Main navigation">
-        <a href="#device">Device demos</a><a href="#simulated">Simulated</a><a href="#recorded">Recorded mixtures</a><a href="#timing">Timing</a><a href="#reproducibility">Settings</a>
+        <a href="#microphone-layout">Array</a><a href="#device">Device demos</a><a href="#simulated">Simulated</a><a href="#recorded">Recorded mixtures</a><a href="#timing">Timing</a><a href="#reproducibility">Settings</a>
       </nav>
     </div>
   </header>
@@ -36,6 +36,14 @@
         <img src="assets/headset-bubble.jpg" alt="Four people around a headset wearer. A blue spherical overlay marks nearby speech to keep, while crossed speaker icons mark outside speech to suppress." width="1600" height="924" fetchpriority="high">
         <figcaption>A spherical overlay illustrates the selected listening region.</figcaption>
       </figure>
+    </section>
+    <section class="section wrap microphone-section" id="microphone-layout" aria-labelledby="microphone-title">
+      <div class="section-head"><div><h2 id="microphone-title">Microphone layout</h2></div><p>Each earcup has one center microphone and three outer microphones at a nominal radius of 2.8 cm, spaced by 120°.</p></div>
+      <figure class="microphone-figure">
+        <a href="assets/geometry/microphone-layout.pdf"><img src="assets/geometry/microphone-layout.svg" alt="Left and right earcup layouts, each with one center microphone and three outer microphones. The ring radius is 2.8 cm and the outer microphones are spaced by 120 degrees." width="864" height="418"></a>
+        <figcaption>Channels 0–3 and 4–7 form the two earcup groups, with center channels 0 and 4.</figcaption>
+      </figure>
+      <p class="section-note microphone-links">Source distance is measured from the array center. <a href="assets/geometry/microphone-layout.pdf">View PDF</a> · <a href="assets/geometry/microphone-layout.drawio" download>Download draw.io source</a></p>
     </section>
     <section class="section wrap" id="device" aria-labelledby="device-title">
       <div class="section-head"><div><h2 id="device-title">A working Raspberry Pi prototype</h2></div><p>Eight input channels, one enhanced output, and a radius that can be changed during operation.</p></div>
